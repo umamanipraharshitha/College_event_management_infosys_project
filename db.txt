@@ -1,0 +1,39 @@
+CREATE TABLE Users (
+  id VARCHAR(36) PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  password VARCHAR(255),
+  college VARCHAR(100),
+  role VARCHAR(50)
+);
+
+CREATE TABLE Events (
+  id VARCHAR(36) PRIMARY KEY,
+  college_id VARCHAR(100),
+  title VARCHAR(255),
+  description TEXT,
+  category VARCHAR(100),
+  location VARCHAR(100),
+  start_date DATETIME,
+  end_date DATETIME
+);
+
+CREATE TABLE Registrations (
+  id VARCHAR(36) PRIMARY KEY,
+  event_id VARCHAR(36),
+  user_id VARCHAR(36),
+  status VARCHAR(50),
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (event_id) REFERENCES Events(id),
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE Feedback (
+  id VARCHAR(36) PRIMARY KEY,
+  event_id VARCHAR(36),
+  user_id VARCHAR(36),
+  rating INT,
+  comment TEXT,
+  FOREIGN KEY (event_id) REFERENCES Events(id),
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+);
